@@ -3,6 +3,9 @@ name: QA Automation Suites
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   ts-suite:
     name: TypeScript Suite
