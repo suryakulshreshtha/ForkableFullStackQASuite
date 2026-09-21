@@ -1,0 +1,21 @@
+# Secrets
+.env
+**/.env
+!**/.env.example
+
+# TS suite
+ts-suite/node_modules/
+ts-suite/playwright-report/
+ts-suite/test-results/
+ts-suite/src/.auth/
+
+# Python suite
+py-suite/__pycache__/
+py-suite/**/__pycache__/
+py-suite/.pytest_cache/
+py-suite/report.html
+py-suite/venv/
+py-suite/.venv/
+
+# Real (non-example) test data
+shared-test-data/users.json

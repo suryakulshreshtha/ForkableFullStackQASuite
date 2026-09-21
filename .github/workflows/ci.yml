@@ -1,0 +1,91 @@
+name: QA Automation Suites
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  ts-suite:
+    name: TypeScript Suite
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ts-suite
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ts-suite/package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - run: npx playwright test
+        env:
+          # FIX: previously passed a single DB_CONNECTION_STRING secret that
+          # neither suite's DB client actually reads — dbClient.ts (and
+          # db_client.py below) read discrete DB_SERVER/DB_NAME/DB_USER/etc.
+          # vars, so every DB-touching test would have failed on undefined
+          # config despite CI looking "configured". QA_STANDARD_USER_* was
+          # also missing entirely, which every auth/login test depends on.
+          BASE_URL: ${{ secrets.BASE_URL }}
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          DB_SERVER: ${{ secrets.DB_SERVER }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_ENCRYPT: ${{ secrets.DB_ENCRYPT }}
+          QA_STANDARD_USER_EMAIL: ${{ secrets.QA_STANDARD_USER_EMAIL }}
+          QA_STANDARD_USER_PASSWORD: ${{ secrets.QA_STANDARD_USER_PASSWORD }}
+          QA_ADMIN_USER_EMAIL: ${{ secrets.QA_ADMIN_USER_EMAIL }}
+          QA_ADMIN_USER_PASSWORD: ${{ secrets.QA_ADMIN_USER_PASSWORD }}
+          QA_SAMPLE_EMPLOYEE_ID: ${{ secrets.QA_SAMPLE_EMPLOYEE_ID }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ts-suite-report
+          path: ts-suite/playwright-report/
+          retention-days: 14
+
+  py-suite:
+    name: Python Suite
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: py-suite
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: py-suite/requirements.txt
+      - run: pip install -r requirements.txt
+      - run: playwright install --with-deps
+      - run: pytest --html=report.html --self-contained-html
+        env:
+          # Python's db_client.py uses DB_DRIVER (ODBC driver string) instead
+          # of DB_ENCRYPT — the two suites' env vars are not identical, so
+          # this block intentionally differs from the ts-suite job above.
+          BASE_URL: ${{ secrets.BASE_URL }}
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          DB_SERVER: ${{ secrets.DB_SERVER }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_DRIVER: ${{ secrets.DB_DRIVER }}
+          QA_STANDARD_USER_EMAIL: ${{ secrets.QA_STANDARD_USER_EMAIL }}
+          QA_STANDARD_USER_PASSWORD: ${{ secrets.QA_STANDARD_USER_PASSWORD }}
+          QA_ADMIN_USER_EMAIL: ${{ secrets.QA_ADMIN_USER_EMAIL }}
+          QA_ADMIN_USER_PASSWORD: ${{ secrets.QA_ADMIN_USER_PASSWORD }}
+          QA_SAMPLE_EMPLOYEE_ID: ${{ secrets.QA_SAMPLE_EMPLOYEE_ID }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: py-suite-report
+          path: py-suite/report.html
+          retention-days: 14

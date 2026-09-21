@@ -1,0 +1,21 @@
+{
+  "name": "ts-suite",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:api": "playwright test tests/api",
+    "test:ui": "playwright test tests/ui",
+    "test:charts": "playwright test tests/charts",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^20.14.0",
+    "typescript": "^5.5.0",
+    "zod": "^3.23.0",
+    "mssql": "^11.0.0",
+    "dotenv": "^16.4.0"
+  }
+}

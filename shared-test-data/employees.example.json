@@ -1,0 +1,25 @@
+{
+  "_comment": "Sample employee records for utilization, visibility (RBAC), and project-history tests. Replace with real seed data for your test environment — IDs here are placeholders.",
+  "juniorEngineer": {
+    "employeeId": "EMP-1001",
+    "name": "Jordan Rivera",
+    "position": "Software Engineer I",
+    "qualifications": ["B.Sc. Computer Science"],
+    "skills": ["JavaScript", "React", "Node.js"],
+    "utilizationPercent": 82,
+    "availableHoursThisWeek": 7,
+    "currentProjects": ["Project Atlas"],
+    "previousProjects": ["Project Beacon", "Project Comet"]
+  },
+  "seniorArchitect": {
+    "employeeId": "EMP-2044",
+    "name": "Priya Nandakumar",
+    "position": "Principal Architect",
+    "qualifications": ["M.Sc. Software Engineering", "AWS Certified Solutions Architect"],
+    "skills": ["System Design", "AWS", "MSSQL", "React"],
+    "utilizationPercent": 95,
+    "availableHoursThisWeek": 2,
+    "currentProjects": ["Project Nova", "Project Atlas"],
+    "previousProjects": ["Project Delta"]
+  }
+}

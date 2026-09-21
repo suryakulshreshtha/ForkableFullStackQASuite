@@ -1,0 +1,19 @@
+{
+  "_comment": "Copy to users.json and fill with real seed data for your test environment. Never commit real credentials.",
+  "standardUser": {
+    "email": "qa.standard@example.com",
+    "password": "REPLACE_ME",
+    "role": "user"
+  },
+  "adminUser": {
+    "email": "qa.admin@example.com",
+    "password": "REPLACE_ME",
+    "role": "admin"
+  },
+  "expiredSubscriptionUser": {
+    "email": "qa.expired@example.com",
+    "password": "REPLACE_ME",
+    "role": "user",
+    "subscriptionStatus": "expired"
+  }
+}
