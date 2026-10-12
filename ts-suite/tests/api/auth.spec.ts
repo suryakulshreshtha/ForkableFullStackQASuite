@@ -20,8 +20,8 @@ test.describe('Auth API', () => {
       process.env.QA_STANDARD_USER_PASSWORD!
     );
     expect(status).toBe(200);
-    expect(body.token).toBeTruthy();
-    expect(body.user.email).toBe(process.env.QA_STANDARD_USER_EMAIL);
+    expect(body!.token).toBeTruthy();
+    expect(body!.user.email).toBe(process.env.QA_STANDARD_USER_EMAIL);
   });
 
   // FIX: previously asserted `.rejects.toThrow()` on api.login(), which

@@ -31,7 +31,7 @@ test.describe('Employee profile visibility by role', () => {
     );
     const employeeApi = await ApiClient.create(
       process.env.API_BASE_URL || 'http://localhost:3000/api',
-      login.token
+      login!.token
     );
 
     const employeeId = process.env.QA_SAMPLE_EMPLOYEE_ID || 'EMP-1001';
@@ -39,7 +39,7 @@ test.describe('Employee profile visibility by role', () => {
 
     expect(status).toBe(200);
     // Confirms the standard-visibility fields are present...
-    expect(body.position).toBeTruthy();
+    expect(body!.position).toBeTruthy();
     // ...and that a manager-only field is NOT leaking through to this role.
     // Adjust "compensation" to whatever field your app actually restricts.
     expect(body).not.toHaveProperty('compensation');
@@ -56,7 +56,7 @@ test.describe('Employee profile visibility by role', () => {
     );
     const employeeApi = await ApiClient.create(
       process.env.API_BASE_URL || 'http://localhost:3000/api',
-      login.token
+      login!.token
     );
 
     const employeeId = process.env.QA_SAMPLE_EMPLOYEE_ID || 'EMP-1001';

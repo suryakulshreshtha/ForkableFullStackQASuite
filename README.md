@@ -1,5 +1,7 @@
 # 🧪 ForkableFullStackQASuite
 
+[![CI](https://github.com/suryakulshreshtha/ForkableFullStackQASuite/actions/workflows/ci.yml/badge.svg)](https://github.com/suryakulshreshtha/ForkableFullStackQASuite/actions/workflows/ci.yml)
+
 [![Stack](https://img.shields.io/badge/stack-Playwright%20%7C%20TypeScript%20%7C%20Python-2563eb?style=flat-square)](#)
 [![DB](https://img.shields.io/badge/db-MSSQL-cc2927?style=flat-square)](#)
 [![Frontend](https://img.shields.io/badge/frontend-React%20%7C%20Next.js%20%7C%20Chart.js-black?style=flat-square)](#)
