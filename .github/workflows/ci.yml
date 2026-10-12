@@ -23,7 +23,7 @@ jobs:
   # Needs no app, database or secrets, so it can be green on every push.
   static:
     name: Static checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -56,7 +56,7 @@ jobs:
     name: TypeScript Suite
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_live }}
     needs: static
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: ts-suite
@@ -101,7 +101,7 @@ jobs:
     name: Python Suite
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_live }}
     needs: static
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: py-suite
