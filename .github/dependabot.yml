@@ -4,11 +4,30 @@ updates:
     directory: "/ts-suite"
     schedule:
       interval: "weekly"
+    groups:
+      # Minor and patch bumps arrive as one pull request. Major bumps still
+      # get a pull request each, so a breaking change is reviewed on its own.
+      # Playwright stays out of the group: it changes the browser the tests
+      # run in, and the live suites that would catch a regression need secrets.
+      ts-minor-patch:
+        patterns: ["*"]
+        exclude-patterns: ["@playwright/*"]
+        update-types: ["minor", "patch"]
   - package-ecosystem: "pip"
     directory: "/py-suite"
     schedule:
       interval: "weekly"
+    groups:
+      # Same rule as the TypeScript suite.
+      py-minor-patch:
+        patterns: ["*"]
+        exclude-patterns: ["playwright", "pytest-playwright"]
+        update-types: ["minor", "patch"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      # Every workflow action in one pull request; CI runs on it.
+      actions:
+        patterns: ["*"]
