@@ -1,3 +1,7 @@
+<!-- forkable-card:start (added by apply_cards.py; re-run it to update) -->
+![Full-Stack QA Suite: two independent Playwright suites, TypeScript and Python, testing one employee CRM against one shared test plan](.github/assets/forkable-card.png)
+<!-- forkable-card:end -->
+
 # 🧪 ForkableFullStackQASuite
 
 [![CI](https://github.com/suryakulshreshtha/ForkableFullStackQASuite/actions/workflows/ci.yml/badge.svg)](https://github.com/suryakulshreshtha/ForkableFullStackQASuite/actions/workflows/ci.yml)
