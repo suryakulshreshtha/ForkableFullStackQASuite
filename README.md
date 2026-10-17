@@ -98,6 +98,12 @@ in [`shared-test-data/testid-requests.md`](./shared-test-data/testid-requests.md
 
 ## 🚀 Getting started
 
+**Before you run:** the CRM these suites test isn't part of this repo. You need:
+
+- the app and its API running, set in `BASE_URL` and `API_BASE_URL`
+- access to its MSSQL database (`DB_*`) and real test accounts (`QA_*`), filled into each suite's `.env`
+- for the Python suite only: Microsoft's ODBC Driver 18 for SQL Server, which `pyodbc` uses to reach MSSQL. On macOS, follow [Microsoft's Homebrew steps](https://learn.microsoft.com/en-us/sql/connect/odbc/linux-mac/install-microsoft-odbc-driver-sql-server-macos); they install unixODBC as well. The TypeScript suite's `mssql` package needs no driver.
+
 **TypeScript suite**
 ```bash
 cd ts-suite
